@@ -141,6 +141,8 @@ cython_debug/
 
 /const.py
 /pyvenv.cfg
+/const.py
+/pyvenv.cfg
 /.idea/.gitignore
 /Scripts/activate
 /Scripts/activate.bat
