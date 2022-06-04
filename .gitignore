@@ -166,3 +166,4 @@ cython_debug/
 /Scripts/tk86t.dll
 /Scripts/vcruntime140.dll
 /.idea/vcs.xml
+/test.py
