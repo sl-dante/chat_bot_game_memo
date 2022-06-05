@@ -6,7 +6,7 @@ import json
 
 
 # Функция для создания кнопки
-def get_button(label, color, payload=''):
+def get_button(label, color='primary', payload=''):
     return {
         'action': {
             'type': 'text',
@@ -21,10 +21,10 @@ def get_button(label, color, payload=''):
 keyboard_for_start = {
     'one_time': False,
     'buttons': [
-        [get_button(label='Правила игры', color='primary')],
-        [get_button(label='Обучение', color='primary')],
-        [get_button(label='Тест', color='primary')],
-        [get_button(label='Справка чат-бота', color='primary')],
+        [get_button(label='Правила игры')],
+        [get_button(label='Обучение')],
+        [get_button(label='Тест')],
+        [get_button(label='Справка чат-бота')],
     ]
 }
 
@@ -32,7 +32,8 @@ keyboard_for_start = {
 keyboard_for_rules = {
     'one_time': False,
     'buttons': [
-
+        [get_button('Выбрать другой тип шахмат')],
+        [get_button('Вернуться в главное меню')]
     ]
 }
 
@@ -40,15 +41,17 @@ keyboard_for_rules = {
 keyboard_for_education = {
     'one_time': False,
     'buttons': [
-
+        [get_button('Вернуться в главное меню')]
     ]
 }
 # Клавиатура выбора шахмат
 keyboard_for_choice_chess = {
     'one_time': False,
     'buttons': [
-        [get_button(label='Японские шахматы', color='primary')],
-        [get_button(label='Китайские шахматы', color='primary')],
+        [get_button(label='Японские шахматы')],
+        [get_button(label='Китайские шахматы')],
+        [get_button(label='Вернуться в главное меню')],
+
     ]
 }
 
@@ -57,6 +60,7 @@ keyboard_for_testing = {
     'one_time': False,
     'buttons': [
         [get_button(label='Начать тестирование', color='primary')],
+        [get_button(label='Вернуться в главное меню')],
     ]
 }
 
@@ -64,6 +68,10 @@ keyboard_for_testing = {
 keyboard_for_FAQ = {
     'one_time': False,
     'buttons': [
-
+        [get_button(label='Подробнее о правилах игры')],
+        [get_button(label='Подробнее о выборе шахмат')],
+        [get_button(label='Подробнее о тестировании')],
+        [get_button(label='Подробнее об обучении')],
+        [get_button(label='Вернуться в главное меню')],
     ]
 }

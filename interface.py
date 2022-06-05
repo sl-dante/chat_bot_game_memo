@@ -1,5 +1,9 @@
-from pathlib import Path
+# ----------------------------------------------------------
+# Инициализация интерфейса
+# ----------------------------------------------------------
 
+
+from pathlib import Path
 import vk_api
 import urllib.request
 from vk_api.bot_longpoll import VkBotEventType, VkBotLongPoll
@@ -10,7 +14,6 @@ import text_files
 import keyboards
 
 token = const.token
-
 group_id = const.id_group
 vk_session = vk_api.VkApi(token=token)
 vk = vk_session.get_api()
@@ -22,18 +25,31 @@ longPoll = VkBotLongPoll(vk_session, group_id=group_id)
 def encode_keyboard_for_vk(keyboard):
     keyboard = json.dumps(keyboard, ensure_ascii=False).encode('utf-8')
     keyboard = str(keyboard.decode('utf-8'))
+
     return keyboard
 
 
-def create_event_message(message, chat_bot_responce):
+# Создание простого ответа чат-бота на сообщение пользователя
+def create_event_message(message, chat_bot_responce, keyboard):
     if event.obj.text.lower() == message.lower():
         if event.from_user:
             vk.messages.send(
                 user_id=event.obj.from_id,
                 random_id=get_random_id(),
-                message=chat_bot_responce)
+                message=chat_bot_responce,
+                keyboard=keyboard)
 
 
+# Создание ответа чат-бота с отправкой текста из текстового файла
+def create_event_message_for_send_text(message, path_text_file, keyboard):
+    absolute_path_for_root_directory = Path(__file__).resolve().parents[0]
+    absolute_path_for_text_file = f'{absolute_path_for_root_directory}/text_files/' + path_text_file
+    file_read = open(absolute_path_for_text_file, 'r', encoding='UTF-8')
+
+    return create_event_message(message, file_read.read(), keyboard)
+
+
+# Основной цикл работы чат-бота
 for event in longPoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         if event.obj.text.lower() == 'начать' or event.obj.text.lower() == 'привет':
@@ -44,39 +60,86 @@ for event in longPoll.listen():
                     message='Здраствуй',
                     keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
 
-        if event.obj.text.lower() == 'правила игры':
-            if event.from_user:
-                vk.messages.send(
-                    user_id=event.obj.from_id,
-                    random_id=get_random_id(),
-                    message='Выберите шахматы для которых вы хотите изучить правила игры',
-                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_choice_chess))
+        create_event_message(
+            message='правила игры',
+            chat_bot_responce='Выберите шахматы для которых вы хотите изучить правила игры',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_choice_chess))
 
+        create_event_message_for_send_text(
+            message='китайские шахматы',
+            path_text_file='rules_for_china_chess.txt',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_rules))
 
+        create_event_message_for_send_text(
+            message='японские шахматы',
+            path_text_file='rules_for_japan_chess.txt',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_rules))
 
-        if event.obj.text.lower() == 'тест':
-            if event.from_user:
-                vk.messages.send(
-                    user_id=event.obj.from_id,
-                    random_id=get_random_id(),
-                    message='Для вас будет проведен тест по знанию карточек, как будете готовы нажмите "Начать"')
+        create_event_message(
+            message='тест',
+            chat_bot_responce='Для вас будет проведен тест по знанию карточек, '
+                              'как будете готовы нажмите "Начать"',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_testing)
+        )
 
-        if event.obj.text.lower() == 'справка чат-бота':
-            if event.from_user:
-                vk.messages.send(
-                    user_id=event.obj.from_id,
-                    random_id=get_random_id(),
-                    message='Выберите категорию\n'
-                            '1. Подробнее о правилах игры\n'
-                            '2. Подробнее о выборе шахмат\n'
-                            '3. Подробнее о тестировании\n')
+        create_event_message(
+            message='Обучение',
+            chat_bot_responce='Выбери фигуру которую вы хотите изучить',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_education)
+        )
 
-            if event.obj.text.lower() == 'подробнее о правилах игры':
-                if event.from_user:
-                    vk.messages.send(
-                        user_id=event.obj.from_id,
-                        random_id=get_random_id(),
-                        message='Выберите категорию\n'
-                                '1. Подробнее о правилах игры\n'
-                                '2. Подробнее о выборе шахмат\n'
-                                '3. Подробнее о тестировании\n')
+        create_event_message(
+            message='справка чат-бота',
+            chat_bot_responce='Выберите категорию\n'
+                              '1. Подробнее о правилах игры\n'
+                              '2. Подробнее о выборе шахмат\n'
+                              '3. Подробнее о тестировании\n'
+                              '4. Подробнее об обучении\n',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_FAQ)
+        )
+
+        create_event_message(
+            message='подробнее о правилах игры',
+            chat_bot_responce='При нажатии на эту клавишу, вам объяснят правила игры выбранных вами '
+                              'шахмат, в данном проекте используются шахматы двух типов:\n'
+                              '1. Китайские\n'
+                              '2. Японские\n',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_FAQ)
+        )
+
+        create_event_message(
+            message='подробнее о выборе шахмат',
+            chat_bot_responce='Перед тем, как узнать правила игры, пройти обучение или пройти тестирование'
+                              'вам будет предложено выбрать вид шахмат, для которых будут описаны правила, '
+                              'проведено тестирование или обучение',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_FAQ)
+        )
+
+        create_event_message(
+            message='подробнее о тестировании',
+            chat_bot_responce='Тестирование подразумевает под собой, мини-игру, где вам показывают картинку '
+                              'и предлагают выбрать один из нескольких вариантов ответов как, '
+                              'называется фигура в виде кнопок, чтобы '
+                              'получить бал, нужно ответить правильно',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_FAQ)
+        )
+
+        create_event_message(
+            message='подробнее об обучении',
+            chat_bot_responce='Обучение подразумевает под собой, мини игру где вам предлагают клавиатуру на которой '
+                              'отображены все фигуры, при нажатии на любую фигуру вам покажут картинку с этой фигурой '
+                              'описание этой фигуры и то как она ходит',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_FAQ)
+        )
+
+        create_event_message(
+            message='вернуться в главное меню',
+            chat_bot_responce='Ок',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start)
+        )
+
+        create_event_message(
+            message='выбрать другой тип шахмат',
+            chat_bot_responce='Выбирай',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_choice_chess)
+        )
