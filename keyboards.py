@@ -75,3 +75,13 @@ keyboard_for_FAQ = {
         [get_button(label='Вернуться в главное меню')],
     ]
 }
+
+# Клавиатура для выбора числа вопросов
+keyboard_for_choice_count = {
+    'one_time': False,
+    'buttons': [
+        [get_button(i) for i in range(4, 8)],
+        [get_button(i) for i in range(8, 12)],
+        [get_button(i) for i in range(12, 16)],
+    ]
+}

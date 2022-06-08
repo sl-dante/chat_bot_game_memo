@@ -10,8 +10,10 @@ from vk_api.bot_longpoll import VkBotEventType, VkBotLongPoll
 from vk_api.utils import get_random_id
 import json
 import const
-import text_files
 import keyboards
+import test
+from common_method_for_project import *
+
 
 token = const.token
 group_id = const.id_group
@@ -143,3 +145,122 @@ for event in longPoll.listen():
             chat_bot_responce='Выбирай',
             keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_choice_chess)
         )
+
+        create_event_message(
+            message='начать тестирование',
+            chat_bot_responce='Введи количество карточек, которых ты получишь для тестирования',
+            keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_choice_count)
+        )
+
+        if event.obj.text.lower() == '4':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '5':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '6':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '7':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '8':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '9':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '10':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '11':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '12':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '13':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '14':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == '15':
+            if event.from_user:
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message='Хорошо, тогда начинаем :)',
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start))
+
+        if event.obj.text.lower() == 'черная пушка':
+            if event.from_user:
+                chess = test.select_chess_by_name()
+                vk.messages.send(
+                    user_id=event.obj.from_id,
+                    random_id=get_random_id(),
+                    message=chess.name[0],
+                    keyboard=encode_keyboard_for_vk(keyboards.keyboard_for_start),
+                    attachment = load_photo(chess.path_photo, upload=upload))
+
+
+
+
+
+
+
