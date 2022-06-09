@@ -167,3 +167,9 @@ cython_debug/
 /Scripts/vcruntime140.dll
 /.idea/vcs.xml
 /test.py
+/game_memo.db
+/assets/
+/Scripts/django-admin.py
+/.idea/sqldialects.xml
+/Scripts/django-admin.exe
+/Scripts/sqlformat.exe
