@@ -75,3 +75,59 @@ keyboard_for_FAQ = {
         [get_button(label='Вернуться в главное меню')],
     ]
 }
+
+# Клавиатура для выбора числа вопросов
+keyboard_for_choice_count = {
+    'one_time': False,
+    'buttons': [
+        [get_button(i) for i in range(4, 8)],
+        [get_button(i) for i in range(8, 12)],
+        [get_button(i) for i in range(12, 16)],
+        [get_button('Вернуться в главное меню')],
+    ]
+}
+
+# Клавиатура для изучения китайских шахмат
+keyboard_for_china_chess = {
+    'one_time': False,
+    'buttons': [
+        [get_button(label='Черный советник'),
+         get_button(label='Красный советник'),
+         get_button(label='Черная пушка')],
+        [get_button(label='Красная пушка'),
+         get_button(label='Черная ладья'),
+         get_button(label='Красная ладья')],
+        [get_button(label='Черный слон'),
+         get_button(label='Красный слон'),
+         get_button(label='Черный король')],
+        [get_button(label='Красный король'),
+         get_button(label='Черный конь'),
+         get_button(label='Красный конь')],
+        [get_button(label='Черная пешка'),
+         get_button(label='Красная пешка'), ],
+        [get_button('Вернуться в главное меню')],
+    ]
+}
+
+# Клавиатура для изучения японских шахмат
+keyboard_for_japan_chess = {
+    'one_time': False,
+    'buttons': [
+        [get_button(label='Слон'),
+         get_button(label='Перевёрнутый Слон'),
+         get_button(label='Золото')],
+        [get_button(label='Первый король'),
+         get_button(label='Второй король'),
+         get_button(label='Конь')],
+        [get_button(label='Перевёрнутый Конь'),
+         get_button(label='Пешка'),
+         get_button(label='Перевёрнутая Пешка')],
+        [get_button(label='Ладья'),
+         get_button(label='Перевёрнутая Ладья'),
+         get_button(label='Серебро')],
+        [get_button(label='Перевёрнутое серебро'),
+         get_button(label='Стрелка'),
+         get_button(label='Перевёрнутая стрелка')],
+        [get_button('Вернуться в главное меню')],
+    ]
+}
